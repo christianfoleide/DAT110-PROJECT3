@@ -1,6 +1,8 @@
 package no.hvl.dat110.util;
 
 
+import java.awt.image.ReplicateScaleFilter;
+
 /**
  * @author tdoy
  * dat110 - project 3
@@ -63,6 +65,23 @@ public class FileManager {
 		// hash the replica
 		
 		// store the hash in the replicafiles array.
+		
+		BigInteger[] replicas = new BigInteger[numReplicas];
+		
+		
+		for (int i = 0; i < numReplicas; i++) {
+			
+			String filenameToCopy = filename.substring(0, filename.length()); 
+			filenameToCopy += i;
+			
+			System.out.println(filenameToCopy);
+			
+			BigInteger hashedFileName = Hash.hashOf(filenameToCopy);
+			replicas[i] = hashedFileName;
+			
+		}
+		
+		replicafiles = replicas;
 
 	}
 	
