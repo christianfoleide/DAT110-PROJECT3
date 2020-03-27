@@ -32,29 +32,39 @@ public class ChordLookup {
 
 		NodeInterface successor = node.getSuccessor();
 		
-		NodeInterface stub = Util.getProcessStub(successor.getNodeName(), successor.getPort());
+		NodeInterface stub = null;
 		
-		BigInteger added = node.getNodeID().add(BigInteger.ONE);
+		try {
 		
-		if (Util.computeLogic(added, key, stub.getNodeID())) {
-			return successor;
-		} else {
-			NodeInterface highestPred = (Node) findHighestPredecessor(key);
-			highestPred.findSuccessor(key);
+		 stub = Util.getProcessStub(successor.getNodeName(), successor.getPort());
+		
+		} catch (Exception e) {
+			//
 		}
 		
-		// get the successor of the node
-		
-		// get the stub for this successor (Util.getProcessStub())
-		
-		// check that key is a member of the set {nodeid+1,...,succID} i.e. (nodeid+1 <= key <= succID) using the ComputeLogic
-		
-		// if logic returns true, then return the successor
-		
-		// if logic returns false; call findHighestPredecessor(key)
-		
-		// do highest_pred.findSuccessor(key) - This is a recursive call until logic returns true
-				
+		if (stub != null) {
+			
+			BigInteger added = node.getNodeID().add(BigInteger.ONE);
+			
+			if (Util.computeLogic(added, key, stub.getNodeID())) {
+				return successor;
+			} else {
+				NodeInterface highestPred = (Node) findHighestPredecessor(key);
+				highestPred.findSuccessor(key);
+			}
+			
+			// get the successor of the node
+			
+			// get the stub for this successor (Util.getProcessStub())
+			
+			// check that key is a member of the set {nodeid+1,...,succID} i.e. (nodeid+1 <= key <= succID) using the ComputeLogic
+			
+			// if logic returns true, then return the successor
+			
+			// if logic returns false; call findHighestPredecessor(key)
+			
+			// do highest_pred.findSuccessor(key) - This is a recursive call until logic returns true
+		}
 		return null;					
 	}
 	
@@ -74,6 +84,7 @@ public class ChordLookup {
 			
 			NodeInterface finger = fingerTable.get(i);
 			
+			try {
 			NodeInterface stub = Util.getProcessStub(finger.getNodeName(),
 					finger.getPort());
 			
@@ -84,6 +95,9 @@ public class ChordLookup {
 				
 				return finger;
 				
+			}
+			} catch (Exception e) {
+				//
 			}
 			
 		}
@@ -96,7 +110,7 @@ public class ChordLookup {
 //		
 		// if logic returns true, then return the finger (means finger is the closest to key)
 		
-		return (NodeInterface) this;			
+		return (NodeInterface) node;			
 	}
 	
 	public void copyKeysFromSuccessor(NodeInterface succ) {

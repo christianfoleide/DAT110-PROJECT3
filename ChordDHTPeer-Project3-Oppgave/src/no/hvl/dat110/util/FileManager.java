@@ -90,7 +90,9 @@ public class FileManager {
      * @param bytesOfFile
      * @throws RemoteException 
      */
+	
     public int distributeReplicastoPeers() throws RemoteException {
+
     	int counter = 0;
     	
     	// Task1: Given a filename, make replicas and distribute them to all active peers such that: pred < replica <= peer
@@ -99,6 +101,29 @@ public class FileManager {
     	
     	// create replicas of the filename
     	
+    	createReplicaFiles();
+    	   
+    	Random rnd = new Random();
+    	int index = rnd.nextInt(Util.numReplicas - 1);
+    	 	
+    	for (BigInteger replica : replicafiles) {    		
+    		
+    		NodeInterface replicaSuccessor = chordnode.findSuccessor(replica);
+    		
+    		replicaSuccessor.addKey(replica);
+    		
+    		if (counter == index) {
+    			
+    			replicaSuccessor.saveFileContent(filename, replicaSuccessor.getNodeID(), bytesOfFile, true);
+    			
+        	} else {
+        		replicaSuccessor.saveFileContent(filename, replicaSuccessor.getNodeID(), bytesOfFile, false);
+        	}
+    		
+    		counter++;
+    	}
+    	
+    
 		// iterate over the replicas
     	
     	// for each replica, find its successor by performing findSuccessor(replica)

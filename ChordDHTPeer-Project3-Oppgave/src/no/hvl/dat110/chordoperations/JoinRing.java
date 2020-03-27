@@ -24,12 +24,14 @@ public class JoinRing {
 				
 		//Registry registry = Util.tryIPs();											// try the trackers IP addresses
 		Registry registry = Util.tryIPSingleMachine(chordnode.getNodeName());			// try the ports
-
+		
+		
+		
 		if(registry != null) {
 			try {
 				//String haship = Hash.hashOf(Util.activeIP).toString();
 				String foundNode = Util.activeIP;
-
+					
 				NodeInterface randomNode = (NodeInterface) registry.lookup(foundNode);
 				
 				System.out.println("JoinRing-randomNode = "+randomNode.getNodeName());
