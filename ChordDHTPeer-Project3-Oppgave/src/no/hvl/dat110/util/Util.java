@@ -80,6 +80,7 @@ public class Util {
 		NodeInterface nodestub = null;
 		Registry registry = null;
 		try {
+			
 			// Get the registry for this worker node
 			registry = LocateRegistry.getRegistry(port);		
 			

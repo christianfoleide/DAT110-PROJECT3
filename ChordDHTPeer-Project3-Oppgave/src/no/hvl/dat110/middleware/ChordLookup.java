@@ -18,9 +18,9 @@ import no.hvl.dat110.util.Util;
  *
  */
 public class ChordLookup {
-
-	private Node node;
 	
+	private Node node;
+		
 	public ChordLookup(Node node) {
 		this.node = node;
 	}
@@ -29,13 +29,13 @@ public class ChordLookup {
 		
 		// ask this node to find the successor of key
 		System.out.println("hsadasd");
-
+		
 		NodeInterface successor = node.getSuccessor();
 		
 		NodeInterface stub = null;
 		
 		try {
-		
+			
 		 stub = Util.getProcessStub(successor.getNodeName(), successor.getPort());
 		
 		} catch (Exception e) {
